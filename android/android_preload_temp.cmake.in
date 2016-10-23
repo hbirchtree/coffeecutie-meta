@@ -1,0 +1,37 @@
+if(NOT NATIVE_LIBRARY_DIR)
+    set ( NATIVE_LIBRARY_DIR "${NATIVE_LIBRARY_ROOT}/Android" CACHE PATH "" )
+endif()
+
+message ( "-- Native library directory: ${NATIVE_LIBRARY_DIR}" )
+
+set ( ANDROID_STL gnustl_static CACHE STRING "" )
+
+include_directories ( "${NATIVE_LIBRARY_DIR}/include" )
+
+set ( SDL2_ANDROID_MAIN_FILE "${NATIVE_LIBRARY_DIR}/src/SDL_android_main.c" CACHE FILEPATH "" )
+
+# Required as of now
+set ( COFFEE_BUILD_GLES ON CACHE BOOL "" )
+
+# Does not work with Android as of yet
+set ( COFFEE_BUILD_OPENSSL OFF  CACHE BOOL "" )
+set ( COFFEE_BUILD_QT OFF  CACHE BOOL "" )
+set ( COFFEE_BUILD_NECT OFF CACHE BOOL "" )
+set ( COFFEE_BUILD_PCL OFF CACHE BOOL "" )
+
+# Set specific options
+set ( ANDROID_STL gnustl_static CACHE STRING "" )
+set ( ANDROID_NATIVE_API_LEVEL @ANDROID_API_LEVEL@ CACHE STRING "" )
+set ( ANDROID_ABI "@ANDROID_ABI@" CACHE STRING "" )
+
+# Do some version-dependent fixes
+if(ANDROID_NATIVE_API_LEVEL LESS 17)
+    message ( "-- Disabling GLEAM_RHI, API ${ANDROID_NATIVE_API_LEVEL} isn't supported" )
+    set ( COFFEE_BUILD_GLEAM_RHI OFF )
+endif()
+
+set ( SDL2_INCLUDE_DIR "${NATIVE_LIBRARY_DIR}/include/SDL2" CACHE PATH "" )
+set ( OPENAL_INCLUDE_DIR "${NATIVE_LIBRARY_DIR}/include/AL" CACHE PATH "" )
+
+set ( SDL2_LIBRARY "${NATIVE_LIBRARY_DIR}/${ANDROID_ABI}/libSDL2.a" CACHE FILEPATH "" )
+set ( OPENAL_LIBRARY "${NATIVE_LIBRARY_DIR}/${ANDROID_ABI}/libopenal.so" CACHE FILEPATH "" )
