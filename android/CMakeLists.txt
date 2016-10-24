@@ -1,4 +1,4 @@
-project ( Coffee_Android C CXX )
+project ( Coffee_Android NONE )
 cmake_minimum_required ( VERSION 3.1 )
 
 include ( ExternalProject )
