@@ -24,18 +24,6 @@ ExternalProject_Add ( NativeLibraryBundle
     TEST_COMMAND true
     )
 
-ExternalProject_Add ( SourceGet
-    GIT_REPOSITORY "https://github.com/hbirchtree/coffeecutie.git"
-    GIT_TAG "testing"
-
-    SOURCE_DIR "${SOURCE_DIR}"
-
-    CONFIGURE_COMMAND true
-    BUILD_COMMAND true
-    INSTALL_COMMAND true
-    TEST_COMMAND true
-    )
-
 execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory "${DEPLOY_COMBINE_DIR}" )
 
 function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
@@ -61,7 +49,7 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
 
     ExternalProject_Add ( "${PRE_NAME}"
 
-        DEPENDS NativeLibraryBundle SourceGet
+        DEPENDS NativeLibraryBundle
 
         CMAKE_GENERATOR "Ninja"
         CMAKE_ARGS
