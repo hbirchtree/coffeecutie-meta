@@ -85,13 +85,13 @@ set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 ####################################
 
 ## Android ARM Gingerbread
-create_android_build ( "armv7a_gingerbread" 12 "armeabi-v7a" )
+#create_android_build ( "armv7a_gingerbread" 12 "armeabi-v7a" )
 
 # Android ARM Gingerbread
-create_android_build ( "armv7a_neon_gingerbread" 12 "armeabi-v7a with NEON" )
+#create_android_build ( "armv7a_neon_gingerbread" 12 "armeabi-v7a with NEON" )
 
 # Android x86 Gingerbread
-create_android_build ( "x86_gingerbread" 12 "x86" )
+#create_android_build ( "x86_gingerbread" 12 "x86" )
 
 ####################################
 
