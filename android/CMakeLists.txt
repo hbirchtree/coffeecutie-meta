@@ -67,7 +67,8 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
         CMAKE_ARGS
             -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
             -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
-            -DANDROID_SDK=/home/havard/.local/android-sdk-linux
+            -DANDROID_SDK=/home/coffee/android-sdk-linux
+            -DANDROID_NDK=/home/coffee/android-ndk-linux
             -C${PRELOAD_FILE}
             -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
             -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
