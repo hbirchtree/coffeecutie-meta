@@ -93,8 +93,11 @@ create_android_build ( "x86_kitkat" 19 "x86" )
 # Android x86_64 Kitkat
 create_android_build ( "x86-64_kitkat" 19 "x86_64" )
 
-# Android x86_64 Kitkat
-#create_android_build ( "mips64_kitkat" 19 "mips64" )
+# Android MIPS Kitkat
+create_android_build ( "mips_kitkat" 19 "mips" )
+
+# Android MIPS64 Kitkat
+create_android_build ( "mips64_kitkat" 19 "mips64" )
 
 ####################################
 
