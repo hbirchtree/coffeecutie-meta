@@ -3,26 +3,33 @@ cmake_minimum_required ( VERSION 3.1 )
 
 include ( ExternalProject )
 
+option ( GENERATE_ONLY OFF "Generate preloads and stop" )
+
+set ( ANDROID_NDK "/home/coffee/android-ndk-linux" CACHE PATH "" )
+set ( ANDROID_SDK "/home/coffee/android-sdk-linux" CACHE PATH "" )
+
 set ( PRELOAD_DIRECTORY "${CMAKE_BINARY_DIR}/preloads" )
 
 set ( BUILD_PREFIX_DIR "${CMAKE_BINARY_DIR}" )
-set ( SOURCE_DIR "/tmp/Coffee_testing_src" )
+set ( SOURCE_DIR "/tmp/Coffee_testing_src" CACHE PATH "" )
 
 set ( DEPLOY_COMBINE_DIR "${BUILD_PREFIX_DIR}/deploy_combine" )
 
 set ( TOOLCHAIN_FILE "${SOURCE_DIR}/cmake/Toolchains/all-android.toolchain.cmake" )
-set ( NATIVE_LIB_ROOT "/tmp/Coffee_NativeLibs" )
+set ( NATIVE_LIB_ROOT "/tmp/Coffee_NativeLibs" CACHE PATH "" )
 
 # Download native libraries for Android
-ExternalProject_Add ( NativeLibraryBundle
-    GIT_REPOSITORY "https://github.com/hbirchtree/native-library-bundle.git"
-    SOURCE_DIR "${NATIVE_LIB_ROOT}"
+if(NOT GENERATE_ONLY)
+    ExternalProject_Add ( NativeLibraryBundle
+        GIT_REPOSITORY "https://github.com/hbirchtree/native-library-bundle.git"
+        SOURCE_DIR "${NATIVE_LIB_ROOT}"
 
-    CONFIGURE_COMMAND true
-    BUILD_COMMAND true
-    INSTALL_COMMAND true
-    TEST_COMMAND true
-    )
+        CONFIGURE_COMMAND true
+        BUILD_COMMAND true
+        INSTALL_COMMAND true
+        TEST_COMMAND true
+        )
+endif()
 
 execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory "${DEPLOY_COMBINE_DIR}" )
 
@@ -34,38 +41,40 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
 
     configure_file ( "${PRELOAD_TEMPLATE}" "${PRELOAD_FILE}" @ONLY )
 
-    set ( BUILD_DIR "${BUILD_PREFIX_DIR}/${PRE_NAME}" )
+    if(NOT GENERATE_ONLY)
+        set ( BUILD_DIR "${BUILD_PREFIX_DIR}/${PRE_NAME}" )
 
-    set ( DEPLOY_API_DIR "${DEPLOY_COMBINE_DIR}/${API_LEVEL}" )
-    set ( DEPLOY_TARGET_DIR "${BUILD_DIR}/deploy" )
+        set ( DEPLOY_API_DIR "${DEPLOY_COMBINE_DIR}/${API_LEVEL}" )
+        set ( DEPLOY_TARGET_DIR "${BUILD_DIR}/deploy" )
 
-    execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory
-        "${DEPLOY_API_DIR}" )
-    execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory
-        "${DEPLOY_TARGET_DIR}" )
+        execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory
+            "${DEPLOY_API_DIR}" )
+        execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory
+            "${DEPLOY_TARGET_DIR}" )
 
-    execute_process ( COMMAND ${CMAKE_COMMAND} -E create_symlink
-        "${DEPLOY_API_DIR}" "${DEPLOY_TARGET_DIR}/android-apk" )
+        execute_process ( COMMAND ${CMAKE_COMMAND} -E create_symlink
+            "${DEPLOY_API_DIR}" "${DEPLOY_TARGET_DIR}/android-apk" )
 
-    ExternalProject_Add ( "${PRE_NAME}"
+        ExternalProject_Add ( "${PRE_NAME}"
 
-        DEPENDS NativeLibraryBundle
+            DEPENDS NativeLibraryBundle
 
-        CMAKE_GENERATOR "Ninja"
-        CMAKE_ARGS
-            -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
-            -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
-            -DANDROID_SDK=/home/coffee/android-sdk-linux
-            -DANDROID_NDK=/home/coffee/android-ndk-linux
-            -C${PRELOAD_FILE}
-            -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
-            -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
+            CMAKE_GENERATOR "Ninja"
+            CMAKE_ARGS
+                -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
+                -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
+                -DANDROID_SDK=${ANDROID_SDK}
+                -DANDROID_NDK=${ANDROID_NDK}
+                -C${PRELOAD_FILE}
+                -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
+                -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
 
-        SOURCE_DIR "${SOURCE_DIR}"
-        BINARY_DIR "${BUILD_DIR}"
+            SOURCE_DIR "${SOURCE_DIR}"
+            BINARY_DIR "${BUILD_DIR}"
 
-        INSTALL_DIR "${BUILD_PREFIX_DIR}/out/${PRE_NAME}"
-        )
+            INSTALL_DIR "${BUILD_PREFIX_DIR}/out/${PRE_NAME}"
+            )
+    endif()
 endfunction()
 
 # First, we generate preloads for the subprojects
