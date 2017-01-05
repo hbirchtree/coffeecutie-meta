@@ -61,13 +61,11 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
 
             CMAKE_GENERATOR "Ninja"
             CMAKE_ARGS
+                -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
+                -C${PRELOAD_FILE}
+                -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
                 -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
                 -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
-                -DANDROID_SDK=${ANDROID_SDK}
-                -DANDROID_NDK=${ANDROID_NDK}
-                -C${PRELOAD_FILE}
-                -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
-                -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
 
             SOURCE_DIR "${SOURCE_DIR}"
             BINARY_DIR "${BUILD_DIR}"
@@ -93,20 +91,23 @@ set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 
 ####################################
 
-# Android ARMv7A Kitkat
-create_android_build ( "armv7a_neon_kitkat" 19 "armeabi-v7a with NEON" )
+# Android ARMv5
+create_android_build ( "armeabi_latest" 21 "armeabi" )
 
-# Android x86 Kitkat
-create_android_build ( "x86_kitkat" 19 "x86" )
+# Android ARMv7A
+create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" )
 
-# Android x86_64 Kitkat
-create_android_build ( "x86-64_kitkat" 19 "x86_64" )
+# Android x86
+create_android_build ( "x86_latest" 21 "x86" )
 
-# Android MIPS Kitkat
+# Android x86_64
+create_android_build ( "x86-64_latest" 21 "x86_64" )
+
+# Android MIPS
 create_android_build ( "mips_kitkat" 19 "mips" )
 
-# Android MIPS64 Kitkat
-#create_android_build ( "mips64_kitkat" 19 "mips64" )
+# Android MIPS64
+create_android_build ( "mips64_kitkat" 19 "mips64" )
 
 ####################################
 

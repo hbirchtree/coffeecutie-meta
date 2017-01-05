@@ -4,11 +4,8 @@ endif()
 
 message ( "-- Native library directory: ${NATIVE_LIBRARY_DIR}" )
 
-set ( ANDROID_STL gnustl_static CACHE STRING "" )
 
-include_directories ( "${NATIVE_LIBRARY_DIR}/include" )
-
-set ( SDL2_ANDROID_MAIN_FILE "${NATIVE_LIBRARY_DIR}/src/SDL_android_main.c" CACHE FILEPATH "" )
+include_directories ( "@NATIVE_LIB_ROOT@/Android/include" )
 
 # Required as of now
 set ( COFFEE_BUILD_GLES ON CACHE BOOL "" )
@@ -20,18 +17,19 @@ set ( COFFEE_BUILD_NECT OFF CACHE BOOL "" )
 set ( COFFEE_BUILD_PCL OFF CACHE BOOL "" )
 
 # Set specific options
-set ( ANDROID_STL gnustl_static CACHE STRING "" )
-set ( ANDROID_NATIVE_API_LEVEL @ANDROID_API_LEVEL@ CACHE STRING "" )
-set ( ANDROID_ABI "@ANDROID_ABI@" CACHE STRING "" )
+set ( ANDROID_SDK "@ANDROID_SDK@" CACHE PATH "" )
 
-# Do some version-dependent fixes
-if(ANDROID_NATIVE_API_LEVEL LESS 17)
-    message ( "-- Disabling GLEAM_RHI, API ${ANDROID_NATIVE_API_LEVEL} isn't supported" )
-    set ( COFFEE_BUILD_GLEAM_RHI OFF )
-endif()
+set ( ENV{ANDROID_NDK} "@ANDROID_NDK@" CACHE PATH "" )
+set ( ENV{ANDROID_TOOLCHAIN} "clang" CACHE STRING "" )
+set ( ENV{ANDROID_STL} "c++_static" CACHE STRING "" )
+set ( ENV{ANDROID_PLATFORM} "android-@ANDROID_API_LEVEL@" CACHE STRING "" )
+set ( ENV{ANDROID_ABI} "@ANDROID_ABI@" CACHE STRING "" )
 
-set ( SDL2_INCLUDE_DIR "${NATIVE_LIBRARY_DIR}/include/SDL2" CACHE PATH "" )
-set ( OPENAL_INCLUDE_DIR "${NATIVE_LIBRARY_DIR}/include/AL" CACHE PATH "" )
+# Libraries
+set ( SDL2_ANDROID_MAIN_FILE "@NATIVE_LIB_ROOT@/Android/src/SDL_android_main.c" CACHE FILEPATH "" )
 
-set ( SDL2_LIBRARY "${NATIVE_LIBRARY_DIR}/${ANDROID_ABI}/libSDL2.a" CACHE FILEPATH "" )
-set ( OPENAL_LIBRARY "${NATIVE_LIBRARY_DIR}/${ANDROID_ABI}/libopenal.so" CACHE FILEPATH "" )
+set ( SDL2_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include/SDL2" CACHE PATH "" )
+set ( OPENAL_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include/AL" CACHE PATH "" )
+
+set ( SDL2_LIBRARY "@NATIVE_LIB_ROOT@/Android/@ANDROID_ABI@/libSDL2.a" CACHE FILEPATH "" )
+set ( OPENAL_LIBRARY "@NATIVE_LIB_ROOT@/Android/@ANDROID_ABI@/libopenal.so" CACHE FILEPATH "" )
