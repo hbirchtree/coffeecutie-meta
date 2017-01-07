@@ -33,9 +33,17 @@ endif()
 
 execute_process ( COMMAND ${CMAKE_COMMAND} -E make_directory "${DEPLOY_COMBINE_DIR}" )
 
-function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
+function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
     set ( ANDROID_ABI "${ABI}" )
     set ( ANDROID_API_LEVEL ${API_LEVEL} )
+    set ( ANDROID_TOOLCHAIN "clang" )
+    set ( ANDROID_STL "${STL}" )
+
+    if("${ABI}" STREQUAL "armeabi-v7a")
+        set( ANDROID_ARM_NEON TRUE )
+    else()
+        set( ANDROID_ARM_NEON FALSE )
+    endif()
 
     set ( PRELOAD_FILE "${PRELOAD_DIRECTORY}/${PRE_NAME}.cmake" )
 
@@ -70,7 +78,7 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
             SOURCE_DIR "${SOURCE_DIR}"
             BINARY_DIR "${BUILD_DIR}"
 
-            INSTALL_DIR "${BUILD_PREFIX_DIR}/out/${PRE_NAME}"
+            INSTALL_DIR "${BUILD_PREFIX_DIR}/out_alt/${PRE_NAME}"
             )
     endif()
 endfunction()
@@ -79,41 +87,23 @@ endfunction()
 set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 
 ####################################
-
-## Android ARM Gingerbread
-#create_android_build ( "armv7a_gingerbread" 12 "armeabi-v7a" )
-
-# Android ARM Gingerbread
-#create_android_build ( "armv7a_neon_gingerbread" 12 "armeabi-v7a with NEON" )
-
-# Android x86 Gingerbread
-#create_android_build ( "x86_gingerbread" 12 "x86" )
+# Version for pre-Lollipop devices
+create_android_build ( "armv7a_neon_kk" 19 "armeabi-v7a" "gnustl_static" )
+create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
+create_android_build ( "x86-64_kk" 19 "x86_64" "gnustl_static" )
+create_android_build ( "mips_kk" 19 "mips" "gnustl_static" )
+create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
 
 ####################################
+# Version for post-Lollipop devices
+create_android_build ( "arm64_latest" 21 "arm64-v8a" "c++_static" )
+create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" "gnustl_static" )
+create_android_build ( "x86_latest" 21 "x86" "gnustl_static" )
+create_android_build ( "x86-64_latest" 21 "x86_64" "gnustl_static" )
+create_android_build ( "mips_latest" 21 "mips" "gnustl_static" )
+create_android_build ( "mips64_latest" 21 "mips64" "gnustl_static" )
 
-# Android ARMv5
-create_android_build ( "armeabi_latest" 21 "armeabi" )
-
-# Android ARMv7A
-create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" )
-
-# Android x86
-create_android_build ( "x86_latest" 21 "x86" )
-
-# Android x86_64
-create_android_build ( "x86-64_latest" 21 "x86_64" )
-
-# Android MIPS
-create_android_build ( "mips_kitkat" 19 "mips" )
-
-# Android MIPS64
-create_android_build ( "mips64_kitkat" 19 "mips64" )
 
 ####################################
-
-# Android ARMv8A-64 Lollipop
-create_android_build ( "arm64_lollipop" 21 "arm64-v8a" )
-
-# Android ARMv8A-64 Nougat
-#create_android_build ( "arm64_nougat" 24 "arm64-v8a" )
-
+# Version for Google Daydream
+create_android_build ( "arm64_nougat" 24 "arm64-v8a" "c++_static" )
