@@ -38,6 +38,7 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
     set ( ANDROID_API_LEVEL ${API_LEVEL} )
     set ( ANDROID_TOOLCHAIN "clang" )
     set ( ANDROID_STL "${STL}" )
+    set ( ANDROID_CPP_FEATURES "rtti;exceptions" )
 
     if("${ABI}" STREQUAL "armeabi-v7a")
         set( ANDROID_ARM_NEON TRUE )
