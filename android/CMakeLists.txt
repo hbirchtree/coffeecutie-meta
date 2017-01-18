@@ -59,7 +59,7 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI )
 
             DEPENDS NativeLibraryBundle
 
-            CMAKE_GENERATOR "Ninja"
+            CMAKE_GENERATOR "Unix Makefiles"
             CMAKE_ARGS
                 -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
                 -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
