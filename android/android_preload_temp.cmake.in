@@ -9,6 +9,7 @@ include_directories ( "@NATIVE_LIB_ROOT@/Android/include" )
 
 # Required as of now
 set ( COFFEE_BUILD_GLES ON CACHE BOOL "" )
+set ( COFFEE_BUILD_ASSIMP ON CACHE BOOL "" )
 
 # Set specific options
 set ( ANDROID_SDK "@ANDROID_SDK@" CACHE PATH "" )
@@ -24,8 +25,11 @@ set ( ENV{ANDROID_CPP_FEATURES} "@ANDROID_CPP_FEATURES@" CACHE STRING "" )
 # Libraries
 set ( SDL2_ANDROID_MAIN_FILE "@NATIVE_LIB_ROOT@/Android/src/SDL_android_main.c" CACHE FILEPATH "" )
 
-set ( SDL2_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include/SDL2" CACHE PATH "" )
+set ( SDL2_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include/SDL2" CACHE STRING "" )
 set ( OPENAL_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include/AL" CACHE PATH "" )
 
 set ( SDL2_LIBRARY "@NATIVE_LIB_ROOT@/Android/@ANDROID_ABI@/libSDL2.a" CACHE FILEPATH "" )
 set ( OPENAL_LIBRARY "@NATIVE_LIB_ROOT@/Android/@ANDROID_ABI@/libopenal.so" CACHE FILEPATH "" )
+
+set ( ASSIMP_LIBRARIES "@NATIVE_LIB_ROOT@/Android/@ANDROID_ABI@/libassimp.so" CACHE FILEPATH "" )
+set ( ASSIMP_INCLUDE_DIR "@NATIVE_LIB_ROOT@/Android/include" CACHE PATH "" )

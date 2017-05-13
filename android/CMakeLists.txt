@@ -11,12 +11,12 @@ set ( ANDROID_SDK "/home/coffee/android-sdk-linux" CACHE PATH "" )
 set ( PRELOAD_DIRECTORY "${CMAKE_BINARY_DIR}/preloads" )
 
 set ( BUILD_PREFIX_DIR "${CMAKE_BINARY_DIR}" )
-set ( SOURCE_DIR "/tmp/Coffee_testing_src" CACHE PATH "" )
+set ( SOURCE_DIR "${CMAKE_BINARY_DIR}/Coffee_testing_src" CACHE PATH "" )
 
 set ( DEPLOY_COMBINE_DIR "${BUILD_PREFIX_DIR}/deploy_combine" )
 
 set ( TOOLCHAIN_FILE "${SOURCE_DIR}/cmake/Toolchains/all-android.toolchain.cmake" )
-set ( NATIVE_LIB_ROOT "/tmp/Coffee_NativeLibs" CACHE PATH "" )
+set ( NATIVE_LIB_ROOT "${CMAKE_BINARY_DIR}/Coffee_NativeLibs" CACHE PATH "" )
 
 # Download native libraries for Android
 if(NOT GENERATE_ONLY)
@@ -65,6 +65,8 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
             "${DEPLOY_API_DIR}" "${DEPLOY_TARGET_DIR}/android-apk" )
 
         ExternalProject_Add ( "${PRE_NAME}"
+            GIT_REPOSITORY "https://github.com/hbirchtree/coffeecutie.git"
+	    GIT_TAG "origin/testing"
 
             DEPENDS NativeLibraryBundle
 
@@ -90,10 +92,10 @@ set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 ####################################
 # Version for pre-Lollipop devices
 create_android_build ( "armv7a_neon_kk" 19 "armeabi-v7a" "gnustl_static" )
-create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
-create_android_build ( "x86-64_kk" 19 "x86_64" "gnustl_static" )
-create_android_build ( "mips_kk" 19 "mips" "gnustl_static" )
-create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
+#create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
+#create_android_build ( "x86-64_kk" 19 "x86_64" "gnustl_static" )
+#create_android_build ( "mips_kk" 19 "mips" "gnustl_static" )
+#create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
 
 ####################################
 # Version for post-Lollipop devices
@@ -106,5 +108,6 @@ create_android_build ( "mips64_latest" 21 "mips64" "gnustl_static" )
 
 
 ####################################
-# Version for Google Daydream
+# Version for Nougat+, it has extra features
 create_android_build ( "arm64_nougat" 24 "arm64-v8a" "c++_static" )
+create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )
