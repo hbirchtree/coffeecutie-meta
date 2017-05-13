@@ -70,7 +70,7 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
 
             DEPENDS NativeLibraryBundle
 
-            CMAKE_GENERATOR "Ninja"
+            CMAKE_GENERATOR "Unix Makefiles"
             CMAKE_ARGS
                 -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
                 -C${PRELOAD_FILE}
