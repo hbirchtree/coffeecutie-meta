@@ -4,6 +4,8 @@ cmake_minimum_required ( VERSION 3.1 )
 include ( ExternalProject )
 
 option ( GENERATE_ONLY OFF "Generate preloads and stop" )
+option ( BUILD_EXAMPLES ON "Generate programs" )
+option ( BUILD_TESTS ON "Generate tests" )
 
 set ( ANDROID_NDK "/home/coffee/android-ndk-linux" CACHE PATH "" )
 set ( ANDROID_SDK "/home/coffee/android-sdk-linux" CACHE PATH "" )
@@ -77,6 +79,8 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
                 -DCMAKE_INSTALL_PREFIX=${BUILD_PREFIX_DIR}/out/${API_LEVEL}
                 -DNATIVE_LIBRARY_ROOT=${NATIVE_LIB_ROOT}
                 -DNATIVE_LIBRARY_DIR=${NATIVE_LIB_ROOT}/Android
+                -DGENERATE_PROGRAMS=${BUILD_EXAMPLES}
+                -DCOFFEE_TESTS=${BUILD_TESTS}
 
             SOURCE_DIR "${SOURCE_DIR}"
             BINARY_DIR "${BUILD_DIR}"
@@ -92,22 +96,22 @@ set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 ####################################
 # Version for pre-Lollipop devices
 create_android_build ( "armv7a_neon_kk" 19 "armeabi-v7a" "gnustl_static" )
-#create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
-#create_android_build ( "x86-64_kk" 19 "x86_64" "gnustl_static" )
-#create_android_build ( "mips_kk" 19 "mips" "gnustl_static" )
-#create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
+create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
+create_android_build ( "x86-64_kk" 19 "x86_64" "gnustl_static" )
+create_android_build ( "mips_kk" 19 "mips" "gnustl_static" )
+create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
 
 ####################################
 # Version for post-Lollipop devices
-create_android_build ( "arm64_latest" 21 "arm64-v8a" "c++_static" )
+#create_android_build ( "arm64_latest" 21 "arm64-v8a" "c++_static" )
 create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" "gnustl_static" )
-create_android_build ( "x86_latest" 21 "x86" "gnustl_static" )
-create_android_build ( "x86-64_latest" 21 "x86_64" "gnustl_static" )
-create_android_build ( "mips_latest" 21 "mips" "gnustl_static" )
-create_android_build ( "mips64_latest" 21 "mips64" "gnustl_static" )
+#create_android_build ( "x86_latest" 21 "x86" "gnustl_static" )
+#create_android_build ( "x86-64_latest" 21 "x86_64" "gnustl_static" )
+#create_android_build ( "mips_latest" 21 "mips" "gnustl_static" )
+#create_android_build ( "mips64_latest" 21 "mips64" "gnustl_static" )
 
 
 ####################################
 # Version for Nougat+, it has extra features
 create_android_build ( "arm64_nougat" 24 "arm64-v8a" "c++_static" )
-create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )
+#create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )

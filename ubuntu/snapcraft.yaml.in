@@ -1,0 +1,5 @@
+name: @SNAPPY_PACKAGE_NAME@
+version: @SNAPPY_VERSION@
+summary: @SNAPPY_TITLE@
+description: @SNAPPY_SUMMARY@
+architectures: [ @SNAPPY_ARCHS@ ]

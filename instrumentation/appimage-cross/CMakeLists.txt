@@ -1,4 +1,4 @@
-project ( OpenAL_Cross NONE )
+project ( AppImage_Cross NONE )
 cmake_minimum_required( VERSION 2.8.11 )
 
 include ( ExternalProject )
@@ -16,7 +16,7 @@ ExternalProject_Add ( "${CROSS}"
             -DALSOFT_UTILS=OFF
             -DCMAKE_BUILD_TYPE=Release
 
-        GIT_REPOSITORY "https://github.com/kcat/openal-soft.git"
+        GIT_REPOSITORY "https://github.com/probonopd/AppImageKit.git"
         BINARY_DIR "build"
 
         INSTALL_DIR ${CROSS}
