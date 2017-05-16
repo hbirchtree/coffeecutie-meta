@@ -13,12 +13,12 @@ set ( ANDROID_SDK "/home/coffee/android-sdk-linux" CACHE PATH "" )
 set ( PRELOAD_DIRECTORY "${CMAKE_BINARY_DIR}/preloads" )
 
 set ( BUILD_PREFIX_DIR "${CMAKE_BINARY_DIR}" )
-set ( SOURCE_DIR "${CMAKE_BINARY_DIR}/Coffee_testing_src" CACHE PATH "" )
+set ( SOURCE_DIR "${CMAKE_BINARY_DIR}/Coffee_testing_src" )
 
 set ( DEPLOY_COMBINE_DIR "${BUILD_PREFIX_DIR}/deploy_combine" )
 
 set ( TOOLCHAIN_FILE "${SOURCE_DIR}/cmake/Toolchains/all-android.toolchain.cmake" )
-set ( NATIVE_LIB_ROOT "${CMAKE_BINARY_DIR}/Coffee_NativeLibs" CACHE PATH "" )
+set ( NATIVE_LIB_ROOT "${CMAKE_BINARY_DIR}/Coffee_NativeLibs" )
 
 # Download native libraries for Android
 if(NOT GENERATE_ONLY)
