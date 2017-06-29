@@ -104,7 +104,9 @@ create_android_build ( "mips64_kk" 19 "mips64" "gnustl_static" )
 ####################################
 # Version for post-Lollipop devices
 #create_android_build ( "arm64_latest" 21 "arm64-v8a" "c++_static" )
+create_android_build ( "arm64_lollipop" 21 "arm64-v8a" "c++_static" )
 create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" "gnustl_static" )
+create_android_build ( "armv7a_neon_lollipop" 21 "armeabi-v7a with NEON" "gnustl_static" )
 #create_android_build ( "x86_latest" 21 "x86" "gnustl_static" )
 #create_android_build ( "x86-64_latest" 21 "x86_64" "gnustl_static" )
 #create_android_build ( "mips_latest" 21 "mips" "gnustl_static" )
@@ -114,4 +116,4 @@ create_android_build ( "armv7a_neon_latest" 21 "armeabi-v7a with NEON" "gnustl_s
 ####################################
 # Version for Nougat+, it has extra features
 create_android_build ( "arm64_nougat" 24 "arm64-v8a" "c++_static" )
-#create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )
+create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )
