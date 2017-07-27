@@ -11,6 +11,8 @@ include_directories ( "@NATIVE_LIB_ROOT@/Android/include" )
 set ( COFFEE_BUILD_GLES ON CACHE BOOL "" )
 set ( COFFEE_BUILD_ASSIMP ON CACHE BOOL "" )
 
+set ( COFFEE_BUILD_OPENSSL OFF CACHE BOOL "" )
+
 # Set specific options
 set ( ANDROID_SDK "@ANDROID_SDK@" CACHE PATH "" )
 
