@@ -11,12 +11,16 @@ ExternalProject_Add ( Assimp
         CMAKE_GENERATOR "Ninja"
         CMAKE_ARGS
             -DCMAKE_TOOLCHAIN_FILE=${CROSSCHAIN}
-            -DCMAKE_BUILD_TYPE=Release
+            -DCMAKE_INSTALL_PREFIX=out
+            -DCMAKE_BUILD_TYPE=MinSizeRel
 	    -DASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT=OFF
 	    -DASSIMP_BUILD_BLEND_IMPORTER=ON
 	    -DASSIMP_BUILD_FBX_IMPORTER=ON
 	    -DASSIMP_BUILD_COLLADA_IMPORTER=ON
-            -C${CROSSPRELOAD}
+            -DASSIMP_BUILD_ASSIMP_TOOLS=OFF
+            -DASSIMP_BUILD_TESTS=OFF
+            -DBUILD_SHARED_LIBS=OFF
+            -DBUILD_TESTING=OFF
 
         GIT_REPOSITORY "https://github.com/assimp/assimp.git"
         BINARY_DIR "build"

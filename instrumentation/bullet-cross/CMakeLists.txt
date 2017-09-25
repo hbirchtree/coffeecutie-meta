@@ -17,7 +17,6 @@ ExternalProject_Add ( Bullet3
 	    -DBUILD_CPU_DEMOS=OFF
 	    -DBUILD_EXTRAS=OFF
 	    -DUSE_GRAPHICAL_BENCHMARK=OFF
-	    -C${CROSSPRELOAD}
 
         GIT_REPOSITORY "https://github.com/bulletphysics/bullet3.git"
         BINARY_DIR "build"
