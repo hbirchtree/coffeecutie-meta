@@ -41,6 +41,11 @@ function( CREATE_ANDROID_BUILD PRE_NAME API_LEVEL ABI STL )
     set ( ANDROID_TOOLCHAIN "clang" )
     set ( ANDROID_STL "${STL}" )
     set ( ANDROID_CPP_FEATURES "rtti;exceptions" )
+    set ( ANDROID_GLES20 ON )
+
+    if("${PRE_NAME}" MATCHES "gles3")
+        set ( ANDROID_GLES20 OFF )
+    endif()
 
     if("${ABI}" STREQUAL "armeabi-v7a")
         set( ANDROID_ARM_NEON TRUE )

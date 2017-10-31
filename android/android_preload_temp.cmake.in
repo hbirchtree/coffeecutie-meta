@@ -9,6 +9,7 @@ include_directories ( "@NATIVE_LIB_ROOT@/Android/include" )
 
 # Required as of now
 set ( COFFEE_BUILD_GLES ON CACHE BOOL "" )
+set ( COFFEE_BUILD_GLES_20 @ANDROID_GLES20@  CACHE BOOL "" )
 set ( COFFEE_BUILD_ASSIMP ON CACHE BOOL "" )
 
 set ( COFFEE_BUILD_OPENSSL OFF CACHE BOOL "" )
