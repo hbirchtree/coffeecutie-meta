@@ -123,3 +123,5 @@ create_android_build ( "armv7a_neon_lollipop" 21 "armeabi-v7a with NEON" "gnustl
 create_android_build ( "arm64_nougat" 24 "arm64-v8a" "c++_static" )
 create_android_build ( "arm64_nougat_gles3" 24 "arm64-v8a" "c++_static" )
 create_android_build ( "armv7a_neon_nougat" 24 "armeabi-v7a with NEON" "c++_static" )
+create_android_build ( "armv7a_nougat_gles3" 24 "armeabi-v7a with NEON" "c++_static" )
+
