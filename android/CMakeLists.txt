@@ -99,6 +99,9 @@ endfunction()
 set ( PRELOAD_TEMPLATE "${CMAKE_SOURCE_DIR}/android_preload_temp.cmake.in" )
 
 ####################################
+# Ancient version!
+create_android_build ( "armv7a_old" 9 "armeabi-v7a" "gnustl_static" )
+
 # Version for pre-Lollipop devices
 create_android_build ( "armv7a_neon_kk" 19 "armeabi-v7a" "gnustl_static" )
 create_android_build ( "x86_kk" 19 "x86" "gnustl_static" )
